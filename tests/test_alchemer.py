@@ -30,15 +30,26 @@ def test_client_authentication():
 
 def test_alchemer_object_list():
     client = intantiate_client()
-    surveys = client.survey.list()
-    assert type(surveys) == list
+    alchemer_object = client.survey.list()
+    assert type(alchemer_object) == list
 
-    if len(surveys) > 0:
-        s = surveys[0]
-        assert type(s) == dict
+    if len(alchemer_object) > 0:
+        o = alchemer_object[0]
+        assert type(o) == dict
 
-        s_keys = ['id', 'team', 'type', 'status', 'created_on', 'modified_on', 'title', 'statistics', 'links']
-        assert list(s.keys()) == s_keys
+        o_keys = [
+            "id",
+            "team",
+            "type",
+            "status",
+            "created_on",
+            "modified_on",
+            "title",
+            "statistics",
+            "links",
+        ]
+        assert list(o.keys()) == o_keys
+
 
 def test_alchemer_object_get():
     pass
