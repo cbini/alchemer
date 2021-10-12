@@ -5,29 +5,26 @@ class AlchemerObject(object):
         self._session = getattr(self.__parent, "_session", session)
         self.url = f"{getattr(self.__parent, 'url', session.base_url)}/{name}"
 
-    def get(self, id, params={}):
+    def get_object_data(self, id, params={}):
         self.url = f"{self.url}/{id}"
-        self.__data = self._session._api_get(
+        return self._session._api_get(
             url=self.url,
             params=params,
         )
 
-        for k, v in self.__data.items():
+    def get(self, id, params={}):
+        data = self.get_object_data(id=id, params=params).get("data")
+
+        for k, v in data.items():
             setattr(self, k, v)
 
         return self
 
     def list(self, params={}):
-        if "page" in params:
-            return self._session._api_get(
-                url=self.url,
-                params=params,
-            )
-        else:
-            return self._session._api_list(
-                url=self.url,
-                params=params,
-            )
+        return self._session._api_list(
+            url=self.url,
+            params=params,
+        )
 
     def create(self, params):
         return self._session._api_call(method="PUT", url=self.url, params=params)

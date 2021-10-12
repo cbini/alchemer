@@ -40,31 +40,28 @@ class AlchemerSession(requests.Session):
             raise xc
 
     def _api_get(self, url, params):
-        return self._api_call(method="GET", url=url, params=params).get("data")
+        return self._api_call(method="GET", url=url, params=params)
 
     def _api_list(self, url, params):
         all_data = []
         while True:
-            r = self._api_call(method="GET", url=url, params=params)
+            response = self._api_get(url=url, params=params)
 
-            data = r.get("data")
-            if type(data) == list:
-                all_data.extend(data)
-            elif type(data) == dict:
-                all_data.append(data)
+            data = response.get("data", [])
+            total_pages = response.get("total_pages", 1)
+            page = response.get("page", 1)
 
-            page = r.get("page", 1)
-            params.update({"page": page + 1})
-            total_pages = r.get("total_pages", 1)
+            all_data.extend(data)
+
+            if "page" in params:
+                break
 
             if page == total_pages:
                 break
 
-        return all_data
+            params.update({"page": page + 1})
 
-    @property
-    def survey(self):
-        return Survey(session=self, name="survey")
+        return all_data
 
     @property
     def account(self):
@@ -85,6 +82,10 @@ class AlchemerSession(requests.Session):
     @property
     def sso(self):
         return AlchemerObject(session=self, name="sso")
+
+    @property
+    def survey(self):
+        return Survey(session=self, name="survey")
 
     @property
     def survey_theme(self):
