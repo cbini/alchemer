@@ -40,7 +40,7 @@ class AlchemerObject(object):
             try:
                 v = parser.parse(v, tzinfos=TZINFOS)
                 if not v.tzinfo and self._session.time_zone:
-                    v = v.replace(tzinfo=tz.gettz(self._session.time_zone))
+                    v = v.replace(tzinfo=self._session.time_zone)
             except:
                 pass
             setattr(self, k, v)

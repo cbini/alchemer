@@ -1,4 +1,5 @@
 import requests
+from dateutil import tz
 
 from .classes import AlchemerObject, Survey, ContactList
 
@@ -14,7 +15,7 @@ class AlchemerSession(requests.Session):
     ):
         self.api_version = api_version
         self.base_url = f"https://api.alchemer.com/{api_version}"
-        self.time_zone = time_zone
+        self.time_zone = tz.gettz(time_zone)
 
         if api_version != "v5":
             raise NotImplementedError(
