@@ -4,6 +4,7 @@ class AlchemerObject(object):
         self.__parent = kwargs.pop("parent", None)
         self._session = getattr(self.__parent, "_session", session)
         self.url = f"{getattr(self.__parent, 'url', session.base_url)}/{name}"
+        self.data = {}
 
     def get_object_data(self, id, params={}):
         self.url = f"{self.url}/{id}"
@@ -13,9 +14,9 @@ class AlchemerObject(object):
         )
 
     def get(self, id, params={}):
-        data = self.get_object_data(id=id, params=params).get("data")
+        self.data = self.get_object_data(id=id, params=params).get("data")
 
-        for k, v in data.items():
+        for k, v in self.data.items():
             setattr(self, k, v)
 
         return self

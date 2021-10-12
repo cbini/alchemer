@@ -39,8 +39,13 @@ def question_keys():
     return []
 
 
+@fixture
+def account_keys():
+    return []
+
+
 def test_version():
-    assert __version__ == "0.3.0"
+    assert __version__ == "0.3.1"
 
 
 def test_client_authentication():
@@ -48,6 +53,25 @@ def test_client_authentication():
 
     assert client.auth_params.get("api_token") == ALCHEMER_API_TOKEN
     assert client.auth_params.get("api_token_secret") == ALCHEMER_API_TOKEN_SECRET
+
+
+def test_account_v5(account_keys):
+    client = get_client("v5")
+
+    # get list of surveys
+    account_list = client.account.list()
+    assert isinstance(account_list, list)
+    assert len(account_list) > 0
+
+    # check 1st survey list item is dict with expected keys
+    a = account_list[0]
+    assert isinstance(a, dict)
+    assert set(account_keys).issubset(a.keys())
+
+    # get survey object of 1st item
+    account = client.account.get(a["id"])
+    assert isinstance(account, AlchemerObject)
+    # assert set(account_keys).issubset(survey.__dict__.keys())
 
 
 def test_survey_v5(survey_keys):
