@@ -1,12 +1,13 @@
 [tool.poetry]
 name = "alchemer"
-version = "0.3.2"
+version = "0.4.0"
 description = ""
 authors = ["Charlie Bini <5003326+cbini@users.noreply.github.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
 requests = "^2.26.0"
+python-dateutil = "^2.8.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2"

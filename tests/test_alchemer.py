@@ -1,25 +1,24 @@
 import os
-from _pytest.monkeypatch import monkeypatch
 
-from pytest import fixture
+import pytest
 
 from alchemer import __version__, AlchemerSession
 from alchemer.classes import AlchemerObject, Survey, SurveyQuestion
-import pytest
 
 ALCHEMER_API_TOKEN = os.getenv("ALCHEMER_API_TOKEN")
 ALCHEMER_API_TOKEN_SECRET = os.getenv("ALCHEMER_API_TOKEN_SECRET")
 
 
-def get_client(api_version):
+def get_client(api_version, time_zone=None):
     return AlchemerSession(
         api_version=api_version,
         api_token=ALCHEMER_API_TOKEN,
         api_token_secret=ALCHEMER_API_TOKEN_SECRET,
+        time_zone=time_zone,
     )
 
 
-@fixture
+@pytest.fixture
 def survey_keys():
     return [
         "id",
@@ -34,12 +33,12 @@ def survey_keys():
     ]
 
 
-@fixture
+@pytest.fixture
 def question_keys():
     return []
 
 
-@fixture
+@pytest.fixture
 def account_keys():
     return []
 
@@ -106,3 +105,18 @@ def test_survey_v5(survey_keys):
     question = survey.question.get(sq["id"])
     assert isinstance(question, SurveyQuestion)
     # assert set(sq_keys).issubset(question.__dict__.keys())
+
+
+def test_surveycampaign_filter_v5():
+    client = get_client("v5")
+    survey_list = client.survey.list()
+    s = survey_list[0]
+    survey = client.survey.get(s["id"])
+
+    sc_list_filtered = (
+        survey.campaign.filter("name", "=", "My New Web Link")
+        .filter("date_created", ">=", "2021-08-01 13:55:51 EDT")
+        .list()
+    )
+    print(sc_list_filtered)
+    assert isinstance(sc_list_filtered, list)

@@ -4,9 +4,17 @@ from .classes import AlchemerObject, Survey, ContactList
 
 
 class AlchemerSession(requests.Session):
-    def __init__(self, api_version, api_token, api_token_secret, auth_method="api_key"):
+    def __init__(
+        self,
+        api_version,
+        api_token,
+        api_token_secret,
+        auth_method="api_key",
+        time_zone=None,
+    ):
         self.api_version = api_version
-        self.base_url = f"https://api.alchemer.com/{self.api_version}"
+        self.base_url = f"https://api.alchemer.com/{api_version}"
+        self.time_zone = time_zone
 
         if api_version != "v5":
             raise NotImplementedError(
