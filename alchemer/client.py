@@ -46,24 +46,21 @@ class AlchemerSession(requests.Session):
         all_data = []
         while True:
             response = self._api_get(url=url, params=params)
-            print(response)
 
+            total_pages = response.get("total_pages", 1)
+            page = response.get("page", 1)
             data = response.get("data", [])
             if isinstance(data, dict):
                 data = [data]
 
-            total_pages = response.get("total_pages", 1)
-            page = response.get("page", 1)
-
             all_data.extend(data)
-
-            if "page" in params:
-                break
 
             if page == total_pages:
                 break
-
-            params.update({"page": page + 1})
+            elif "page" in params:
+                break
+            else:
+                params.update({"page": page + 1})
 
         return all_data
 
