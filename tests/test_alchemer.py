@@ -5,6 +5,9 @@ import pytest
 from alchemer import __version__, AlchemerSession
 from alchemer.classes import AlchemerObject, Survey, SurveyQuestion
 
+from dotenv import load_dotenv
+load_dotenv()
+
 ALCHEMER_API_TOKEN = os.getenv("ALCHEMER_API_TOKEN")
 ALCHEMER_API_TOKEN_SECRET = os.getenv("ALCHEMER_API_TOKEN_SECRET")
 
@@ -120,3 +123,8 @@ def test_surveycampaign_filter_v5():
     )
     print(sc_list_filtered)
     assert isinstance(sc_list_filtered, list)
+
+# def test_surveyresponse_page_v5():
+#     client = get_client("v5")
+#     survey = client.survey.get(4561325)
+#     r = survey.response.filter("status", "=", "Disqualified").list()

@@ -1,3 +1,5 @@
+import copy
+
 import requests
 from dateutil import tz
 
@@ -49,27 +51,32 @@ class AlchemerSession(requests.Session):
             raise xc
 
     def _api_get(self, url, params):
+        params = copy.deepcopy(params)
         return self._api_call(method="GET", url=url, params=params)
 
     def _api_list(self, url, params):
+        original_params = params
+        req_params = copy.deepcopy(params)        
         all_data = []
         while True:
-            response = self._api_get(url=url, params=params)
+            response = self._api_get(url=url, params=req_params)
 
             total_pages = response.get("total_pages", 1)
             page = response.get("page", 1)
-            data = response.get("data", [])
+            data = response.get("data")
             if isinstance(data, dict):
                 data = [data]
+            elif data is None:
+                data = []
 
             all_data.extend(data)
 
             if page == total_pages:
                 break
-            elif "page" in params:
+            elif "page" in original_params:
                 break
             else:
-                params.update({"page": page + 1})
+                req_params.update({"page": page + 1})
 
         return all_data
 
