@@ -1,3 +1,5 @@
+import copy
+
 from dateutil import parser, tz
 
 TZINFOS = {
@@ -26,7 +28,9 @@ class AlchemerObject(object):
             params.update(f)
         return params
 
-    def get(self, id, params={}):
+    def get(self, id, **kwargs):
+        params = copy.deepcopy(kwargs.get("params", {}))
+
         self.url = f"{self.url}/{id}"
         self.data = self._session._api_get(url=self.url, params=params).get("data")
 
@@ -41,17 +45,20 @@ class AlchemerObject(object):
 
         return self
 
-    def list(self, params={}):
+    def list(self, **kwargs):
+        params = copy.deepcopy(kwargs.get("params", {}))
         params = self._prepare_filters(params)
         return self._session._api_list(
             url=self.url,
             params=params,
         )
 
-    def create(self, params):
+    def create(self, **kwargs):
+        params = copy.deepcopy(kwargs.get("params", {}))
         return self._session._api_call(method="PUT", url=self.url, params=params)
 
-    def update(self, id, params):
+    def update(self, id, **kwargs):
+        params = copy.deepcopy(kwargs.get("params", {}))
         self.url = f"{self.url}/{id}"
         return self._session._api_call(method="POST", url=self.url, params=params)
 
