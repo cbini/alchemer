@@ -56,7 +56,7 @@ class AlchemerSession(requests.Session):
 
     def _api_list(self, url, params):
         original_params = params
-        req_params = copy.deepcopy(params)        
+        req_params = copy.deepcopy(params)
         all_data = []
         while True:
             response = self._api_get(url=url, params=req_params)

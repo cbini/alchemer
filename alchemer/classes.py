@@ -136,9 +136,7 @@ class SurveyCampaign(AlchemerObject):
 
     @property
     def contact(self):
-        return AlchemerObject(
-            parent=self, session=self._session, name="surveycontact"
-        )  # TODO: returns None?
+        return AlchemerObject(parent=self, session=self._session, name="surveycontact")
 
     @property
     def email_message(self):
