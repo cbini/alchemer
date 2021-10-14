@@ -84,36 +84,36 @@ class AlchemerSession(requests.Session):
 
     @property
     def account(self):
-        return AlchemerObject(session=self, name="account")
+        return copy.deepcopy(AlchemerObject(session=self, name="account"))
 
     @property
     def account_teams(self):
-        return AlchemerObject(session=self, name="accountteams")
+        return copy.deepcopy(AlchemerObject(session=self, name="accountteams"))
 
     @property
     def account_user(self):
-        return AlchemerObject(session=self, name="accountuser")
+        return copy.deepcopy(AlchemerObject(session=self, name="accountuser"))
 
     @property
     def domain(self):
-        return AlchemerObject(session=self, name="domain")
+        return copy.deepcopy(AlchemerObject(session=self, name="domain"))
 
     @property
     def sso(self):
-        return AlchemerObject(session=self, name="sso")
+        return copy.deepcopy(AlchemerObject(session=self, name="sso"))
 
     @property
     def survey(self):
-        return Survey(session=self, name="survey")
+        return copy.deepcopy(Survey(session=self, name="survey"))
 
     @property
     def survey_theme(self):
-        return AlchemerObject(session=self, name="surveytheme")
+        return copy.deepcopy(AlchemerObject(session=self, name="surveytheme"))
 
     @property
     def contact_list(self):
-        return ContactList(session=self, name="contactlist")
+        return copy.deepcopy(ContactList(session=self, name="contactlist"))
 
     @property
     def contact_custom_field(self):
-        return AlchemerObject(session=self, name="contactcustomfield")
+        return copy.deepcopy(AlchemerObject(session=self, name="contactcustomfield"))
