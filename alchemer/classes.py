@@ -21,20 +21,14 @@ class AlchemerObject(object):
         self._filters = []
         self.url = f"{getattr(self.__parent, 'url', session.base_url)}/{name}"
 
-    def _prepare_filters(self, params={}):
+    def _prepare_filters(self, params):
         for f in self._filters:
             params.update(f)
         return params
 
-    def get_object_data(self, id, params={}):
-        self.url = f"{self.url}/{id}"
-        return self._session._api_get(
-            url=self.url,
-            params=params,
-        )
-
     def get(self, id, params={}):
-        self.data = self.get_object_data(id=id, params=params).get("data")
+        self.url = f"{self.url}/{id}"
+        self.data = self._session._api_get(url=self.url, params=params).get("data")
 
         for k, v in self.data.items():
             try:
