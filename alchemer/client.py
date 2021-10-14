@@ -73,6 +73,8 @@ class AlchemerSession(requests.Session):
 
             if page == total_pages:
                 break
+            elif total_pages == 0:
+                break
             elif "page" in original_params:
                 break
             else:
