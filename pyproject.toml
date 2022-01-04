@@ -1,20 +1,29 @@
-[tool.poetry]
+[project]
 name = "alchemer"
 version = "0.5.4"
 description = ""
-authors = ["Charlie Bini <5003326+cbini@users.noreply.github.com>"]
+authors = [
+    {name = "Charlie Bini", email = "5003326+cbini@users.noreply.github.com"},
+]
+dependencies = [
+    "requests",
+    "python-dateutil",
+]
+requires-python = ">=3.9"
+license = {text = "GP3"}
 
-[tool.poetry.dependencies]
-python = "^3.9"
-requests = "^2.26.0"
-python-dateutil = "^2.8.2"
+[project.urls]
+homepage = ""
 
-[tool.poetry.dev-dependencies]
-pytest = "^6.2"
-black = "^21.9b0"
-python-dotenv = "^0.19.1"
-pytest-dotenv = "^0.5.2"
+[project.optional-dependencies]
+[tool]
+[tool.pdm]
+[tool.pdm.dev-dependencies]
+dev = [
+    "black>=21.12b0",
+    "pytest>=6.2.5",
+]
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["pdm-pep517"]
+build-backend = "pdm.pep517.api"
