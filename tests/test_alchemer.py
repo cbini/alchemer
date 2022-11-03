@@ -2,21 +2,15 @@ import os
 
 import pytest
 
-from alchemer import __version__, AlchemerSession
+from alchemer import AlchemerSession
 from alchemer.classes import AlchemerObject, Survey, SurveyQuestion
-
-from dotenv import load_dotenv
-load_dotenv()
-
-ALCHEMER_API_TOKEN = os.getenv("ALCHEMER_API_TOKEN")
-ALCHEMER_API_TOKEN_SECRET = os.getenv("ALCHEMER_API_TOKEN_SECRET")
 
 
 def get_client(api_version, time_zone=None):
     return AlchemerSession(
         api_version=api_version,
-        api_token=ALCHEMER_API_TOKEN,
-        api_token_secret=ALCHEMER_API_TOKEN_SECRET,
+        api_token=os.getenv("ALCHEMER_API_TOKEN"),
+        api_token_secret=os.getenv("ALCHEMER_API_TOKEN_SECRET"),
         time_zone=time_zone,
     )
 
@@ -46,15 +40,13 @@ def account_keys():
     return []
 
 
-def test_version():
-    assert __version__ == "0.3.1"
-
-
 def test_client_authentication():
     client = get_client("v5")
 
-    assert client.auth_params.get("api_token") == ALCHEMER_API_TOKEN
-    assert client.auth_params.get("api_token_secret") == ALCHEMER_API_TOKEN_SECRET
+    assert client.auth_params.get("api_token") == os.getenv("ALCHEMER_API")
+    assert client.auth_params.get("api_token_secret") == os.getenv(
+        "ALCHEMER_API_TOKEN_SECRET"
+    )
 
 
 def test_account_v5(account_keys):
@@ -123,6 +115,7 @@ def test_surveycampaign_filter_v5():
     )
     print(sc_list_filtered)
     assert isinstance(sc_list_filtered, list)
+
 
 # def test_surveyresponse_page_v5():
 #     client = get_client("v5")

@@ -1,16 +1,17 @@
 import copy
+from zoneinfo import ZoneInfo
 
-from dateutil import parser, tz
+from dateutil import parser
 
 TZINFOS = {
-    "EST": tz.gettz("US/Eastern"),
-    "EDT": tz.gettz("US/Eastern"),
-    "CST": tz.gettz("US/Central"),
-    "CDT": tz.gettz("US/Central"),
-    "MST": tz.gettz("US/Mountain"),
-    "MDT": tz.gettz("US/Mountain"),
-    "PST": tz.gettz("US/Pacific"),
-    "PDT": tz.gettz("US/Pacific"),
+    "EST": ZoneInfo("US/Eastern"),
+    "EDT": ZoneInfo("US/Eastern"),
+    "CST": ZoneInfo("US/Central"),
+    "CDT": ZoneInfo("US/Central"),
+    "MST": ZoneInfo("US/Mountain"),
+    "MDT": ZoneInfo("US/Mountain"),
+    "PST": ZoneInfo("US/Pacific"),
+    "PDT": ZoneInfo("US/Pacific"),
 }
 
 
@@ -39,7 +40,7 @@ class AlchemerObject(object):
                 v = parser.parse(v, tzinfos=TZINFOS)
                 if not v.tzinfo and self._session.time_zone:
                     v = v.replace(tzinfo=self._session.time_zone)
-            except:
+            except Exception:
                 pass
             setattr(self, k, v)
 

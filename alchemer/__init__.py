@@ -1,3 +1,2 @@
-__version__ = "0.3.1"
-
+# trunk-ignore(flake8/F401)
 from alchemer.client import AlchemerSession

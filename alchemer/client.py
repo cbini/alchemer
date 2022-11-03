@@ -3,7 +3,7 @@ import copy
 import requests
 from dateutil import tz
 
-from .classes import AlchemerObject, Survey, ContactList
+from .classes import AlchemerObject, ContactList, Survey
 
 
 class AlchemerSession(requests.Session):
