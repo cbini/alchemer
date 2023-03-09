@@ -1,0 +1,55 @@
+name: Post-Create Setup
+
+on: create
+
+jobs:
+  post_create:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      # https://github.com/octokit/request-action
+      - name: GET user from API
+        uses: octokit/request-action@v2.1.7
+        id: get_user
+        with:
+          route: GET /users/{username}
+          username: ${{ github.actor }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run envsubst script
+        run: bash .github/scripts/envsubst.sh
+        env:
+          GITHUB_REPOSITORY_NAME: ${{ github.event.repository.name }}
+          GITHUB_REPOSITORY_DESC: ${{ github.event.description }}
+          GITHUB_ACTOR_ID: ${{ github.actor_id }} # trunk-ignore(actionlint/expression)
+          GITHUB_ACTOR_NAME: ${{ fromJson(steps.get_user.outputs.data).name }}
+
+      - name: Create .gitignore
+        run: |
+          function gi() {
+            curl -sL "https://www.toptal.com/developers/gitignore/api/${1}"
+          }
+          gi linux,macos,windows,python >.gitignore
+
+      - name: Configure git & commit changes
+        # trunk-ignore(actionlint/expression)
+        run: |
+          git config --global user.name "${{ fromJson(steps.get_user.outputs.data).name }}"
+          git config --global user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
+          git add -A
+          git commit -m "Post-create action commit"
+
+      - name: Install Trunk & auto-format
+        run: |
+          curl https://get.trunk.io -fsSL | bash -s -- -y
+          trunk init --yes-to-all --nocheck-sample
+          trunk actions enable trunk-announce trunk-check-pre-push trunk-fmt-pre-commit
+
+      - name: Commit & push all changes
+        run: |
+          git add -A
+          git commit -m "Initial Trunk commit"
+          git push origin main
