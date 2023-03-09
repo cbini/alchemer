@@ -15,14 +15,12 @@ dependencies = []
 [tool]
 [tool.pdm]
 [tool.pdm.dev-dependencies]
-dev = []
+dev = ["pytest"]
 
 [build-system]
 requires = ["pdm-pep517>=1.0.0"]
 build-backend = "pdm.pep517.api"
 
-[tool.pdm.dev-dependencies]
-dev = ["pytest"]
 
 [tool.pdm.scripts]
 clean-build = { shell = "bash .pdm/scripts/clean-build.sh", help = "remove build artifacts" }
