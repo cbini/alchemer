@@ -1,6 +1,6 @@
 [project]
 name = "alchemer"
-version = "0.6.0"
+version = "0.6.1"
 description = ""
 authors = [
   { name = "Charlie Bini", email = "5003326+cbini@users.noreply.github.com" },

@@ -25,7 +25,7 @@ class AlchemerObject(object):
 
         for k, v in self.data.items():
             try:
-                v = pendulum.parse(v)
+                v = pendulum.from_format(v, "YYYY-MM-DD HH:mm:ss")
                 if not v.tzinfo and self._session.time_zone:
                     v = v.replace(tzinfo=self._session.time_zone)
             except Exception:
