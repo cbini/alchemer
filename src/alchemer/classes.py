@@ -1,18 +1,6 @@
 import copy
-from zoneinfo import ZoneInfo
 
-from dateutil import parser
-
-TZINFOS = {
-    "EST": ZoneInfo("US/Eastern"),
-    "EDT": ZoneInfo("US/Eastern"),
-    "CST": ZoneInfo("US/Central"),
-    "CDT": ZoneInfo("US/Central"),
-    "MST": ZoneInfo("US/Mountain"),
-    "MDT": ZoneInfo("US/Mountain"),
-    "PST": ZoneInfo("US/Pacific"),
-    "PDT": ZoneInfo("US/Pacific"),
-}
+import pendulum
 
 
 class AlchemerObject(object):
@@ -37,11 +25,12 @@ class AlchemerObject(object):
 
         for k, v in self.data.items():
             try:
-                v = parser.parse(v, tzinfos=TZINFOS)
+                v = pendulum.parse(v)
                 if not v.tzinfo and self._session.time_zone:
                     v = v.replace(tzinfo=self._session.time_zone)
             except Exception:
                 pass
+
             setattr(self, k, v)
 
         return self

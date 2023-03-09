@@ -1,14 +1,13 @@
 [project]
 name = "alchemer"
-version = "0.5.5"
+version = "0.6.0"
 description = ""
 authors = [
   { name = "Charlie Bini", email = "5003326+cbini@users.noreply.github.com" },
 ]
 requires-python = ">=3.9"
 license = { text = "GPL-3.0-or-later" }
-dependencies = []
-# requests python-dateutil
+dependencies = ["requests>=2.28.2", "pendulum>=2.1.2"]
 
 [project.optional-dependencies]
 

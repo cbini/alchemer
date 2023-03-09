@@ -3,6 +3,7 @@
   "editor.renderControlCharacters": true,
   "editor.wordWrap": "bounded",
   "editor.wordWrapColumn": 88,
+  "editor.renderWhitespace": "all",
   "files.associations": {
     "*.toml": "toml",
     "*.env": "shellscript"
@@ -47,5 +48,6 @@
   "python.terminal.activateEnvironment": false,
   "[yaml]": {
     "editor.defaultFormatter": "trunk.io"
-  }
+  },
+  "editor.defaultFormatter": "trunk.io"
 }
