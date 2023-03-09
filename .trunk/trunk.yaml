@@ -1,5 +1,6 @@
 version: 0.1
 cli:
+<<<<<<< HEAD
   version: 1.0.1
 plugins:
   sources:
@@ -22,6 +23,30 @@ runtimes:
     - go@1.18.3
     - node@16.14.2
     - python@3.10.3
+=======
+  version: 1.5.1
+plugins:
+  sources:
+    - id: trunk
+      ref: v0.0.12
+      uri: https://github.com/trunk-io/plugins
+lint:
+  enabled:
+    - flake8@6.0.0
+    - git-diff-check
+    - gitleaks@8.16.0
+    - isort@5.12.0
+    - markdownlint@0.33.0
+    - prettier@2.8.4
+    - shellcheck@0.9.0
+    - shfmt@3.5.0
+    - taplo@0.7.0
+runtimes:
+  enabled:
+    - go@1.19.5
+    - node@18.12.1
+    - python@3.10.8
+>>>>>>> new
 actions:
   enabled:
     - trunk-announce

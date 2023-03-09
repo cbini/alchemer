@@ -1,0 +1,5 @@
+# https://www.mkdocs.org/user-guide/configuration/
+
+site_name: alchemer-new
+theme:
+  name: material
