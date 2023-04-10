@@ -1,23 +1,14 @@
 #!/bin/bash
 
-# update apt packages
-sudo apt-get -qq -y update --no-install-recommends &&
-	sudo apt-get -qq -y install --no-install-recommends bash-completion &&
-	sudo apt-get -qq -y upgrade --no-install-recommends &&
-	sudo apt-get -qq autoremove -y &&
-	sudo apt-get -qq clean -y
+# update/install apt packages
+sudo apt-get -y --no-install-recommends update &&
+  sudo apt-get -y --no-install-recommends upgrade &&
+  sudo apt-get -y --no-install-recommends install bash-completion &&
+  sudo apt-get -y autoremove &&
+  sudo apt-get -y clean
+
+# create env folder
+mkdir -p ./env
 
 # update pip
 python -m pip install --no-cache-dir --upgrade pip
-
-# install Trunk
-curl https://get.trunk.io -fsSL | bash -s -- -y
-trunk install --ci
-
-# install pdm dependencies
-pdm install --no-self
-
-# commit new files
-git add .
-git commit -m "Initial PDM commit"
-git push
