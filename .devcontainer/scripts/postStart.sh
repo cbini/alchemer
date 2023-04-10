@@ -1,16 +1,19 @@
 #!/bin/bash
 
 # update apt packages
-sudo apt-get -qq -y update --no-install-recommends &&
-	sudo apt-get -qq -y upgrade --no-install-recommends &&
-	sudo apt-get -qq autoremove -y &&
-	sudo apt-get -qq clean -y
+sudo apt-get -y --no-install-recommends update &&
+  sudo apt-get -y --no-install-recommends upgrade &&
+  sudo apt-get -y autoremove &&
+  sudo apt-get -y clean
 
 # update pip
 python -m pip install --no-cache-dir --upgrade pip
 
 # update pdm
-sudo pdm self update
+sudo /usr/local/py-utils/bin/pdm self update
+
+# install pdm dependencies
+pdm install --no-lock
 
 # update trunk
 trunk upgrade -y --no-progress
