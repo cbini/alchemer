@@ -7,10 +7,11 @@ class AlchemerObject(object):
     def __init__(self, session, name, **kwargs):
         self.__name__ = name
         self.__parent = kwargs.pop("parent", None)
-        self._session = getattr(self.__parent, "_session", session)
         self._data = {}
         self._filters = []
+
         self.url = f"{getattr(self.__parent, 'url', session.base_url)}/{name}"
+        self._session = getattr(self.__parent, "_session", session)  # type: ignore
 
     def _prepare_filters(self, params):
         for f in self._filters:
@@ -28,6 +29,7 @@ class AlchemerObject(object):
                 v = pendulum.from_format(v, "YYYY-MM-DD HH:mm:ss")
                 if not v.tzinfo and self._session.time_zone:
                     v = v.replace(tzinfo=self._session.time_zone)
+            # trunk-ignore(bandit/B110)
             except Exception:
                 pass
 
