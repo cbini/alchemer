@@ -1,0 +1,8 @@
+{
+  "recommendations": [
+    "github.codespaces",
+    "ms-python.vscode-pylance",
+    "ms-python.python",
+    "trunk.io"
+  ]
+}

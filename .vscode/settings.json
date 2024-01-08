@@ -1,53 +1,42 @@
 {
+  "editor.defaultFormatter": "trunk.io",
+  "editor.formatOnSave": true,
   "editor.inlineSuggest.enabled": true,
   "editor.renderControlCharacters": true,
+  "editor.renderWhitespace": "all",
   "editor.wordWrap": "bounded",
   "editor.wordWrapColumn": 88,
-  "editor.renderWhitespace": "all",
+  "githubPullRequests.ignoredPullRequestBranches": ["main"],
+  "python.defaultInterpreterPath": ".venv/bin/python",
   "files.associations": {
     "*.toml": "toml",
-    "*.env": "shellscript"
+    "*.env": "shellscript",
+    "*.sql": "jinja-sql"
   },
   "files.exclude": {
-    "**/.trunk/*out": true
+    "**/.git": false,
+    "**/.trunk/*actions/": true,
+    "**/.trunk/*logs/": true,
+    "**/.trunk/*notifications/": true,
+    "**/.trunk/*out/": true,
+    "**/.trunk/*plugins/": true
   },
   "files.watcherExclude": {
-    "**/.trunk/*out": true
+    "**/.trunk/*actions/": true,
+    "**/.trunk/*logs/": true,
+    "**/.trunk/*notifications/": true,
+    "**/.trunk/*out/": true,
+    "**/.trunk/*plugins/": true
   },
   "[json]": {
-    "editor.defaultFormatter": "trunk.io"
+    "editor.defaultFormatter": "vscode.json-language-features"
   },
-  "[jsonc]": {
-    "editor.defaultFormatter": "trunk.io"
-  },
-  "[python]": {
-    "editor.formatOnSave": true,
-    "editor.defaultFormatter": "trunk.io"
-  },
-  "python.analysis.autoImportCompletions": false,
-  "python.analysis.extraPaths": [
-    "${workspaceFolder}/__pypackages__/3.7/lib",
-    "${workspaceFolder}/__pypackages__/3.8/lib",
-    "${workspaceFolder}/__pypackages__/3.9/lib",
-    "${workspaceFolder}/__pypackages__/3.10/lib",
-    "${workspaceFolder}/__pypackages__/3.11/lib"
-  ],
-  "python.autoComplete.extraPaths": [
-    "${workspaceFolder}/__pypackages__/3.7/lib",
-    "${workspaceFolder}/__pypackages__/3.8/lib",
-    "${workspaceFolder}/__pypackages__/3.9/lib",
-    "${workspaceFolder}/__pypackages__/3.10/lib",
-    "${workspaceFolder}/__pypackages__/3.11/lib"
-  ],
-  "python.linting.ignorePatterns": [
-    "**/site-packages/**/*.py",
-    ".vscode/*.py",
-    "**/__pypackages__/**/*.py"
-  ],
-  "python.linting.pylintEnabled": false,
-  "python.terminal.activateEnvironment": false,
-  "[yaml]": {
-    "editor.defaultFormatter": "trunk.io"
-  },
-  "editor.defaultFormatter": "trunk.io"
+  "testing.showAllMessages": true,
+  "python.testing.pytestArgs": ["tests", "--capture=no"],
+  "python.testing.unittestEnabled": false,
+  "python.testing.pytestEnabled": true,
+  "python.analysis.typeCheckingMode": "basic",
+  "trunk.numJobs": 1,
+  "python.createEnvironment.trigger": "off",
+  "python.terminal.activateEnvironment": false
 }

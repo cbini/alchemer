@@ -1,5 +1,12 @@
-# Created by https://www.toptal.com/developers/gitignore/api/linux,macos,windows,python
-# Edit at https://www.toptal.com/developers/gitignore?templates=linux,macos,windows,python
+# Created by https://www.toptal.com/developers/gitignore/api/linux,macos,windows,python,dbt
+# Edit at https://www.toptal.com/developers/gitignore?templates=linux,macos,windows,python,dbt
+
+### dbt ###
+target/
+dbt_modules/
+dbt_packages/
+logs/
+.user.yml
 
 ### Linux ###
 *~
@@ -125,7 +132,6 @@ docs/_build/
 
 # PyBuilder
 .pybuilder/
-target/
 
 # Jupyter Notebook
 .ipynb_checkpoints
@@ -160,6 +166,7 @@ ipython_config.py
 #   in version control.
 #   https://pdm.fming.dev/#use-with-ide
 .pdm.toml
+.pdm-python
 
 # PEP 582; used by e.g. github.com/David-OConnor/pyflow and github.com/pdm-project/pdm
 __pypackages__/
@@ -219,7 +226,7 @@ poetry.toml
 .ruff_cache/
 
 # LSP config files
-pyrightconfig.json
+# pyrightconfig.json
 
 ### Windows ###
 # Windows thumbnail cache files
@@ -247,4 +254,4 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.toptal.com/developers/gitignore/api/linux,macos,windows,python
+# End of https://www.toptal.com/developers/gitignore/api/linux,macos,windows,python,dbt

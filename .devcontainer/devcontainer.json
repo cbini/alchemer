@@ -1,13 +1,15 @@
 {
-  "image": "mcr.microsoft.com/devcontainers/python:3.10",
+  "image": "mcr.microsoft.com/devcontainers/python:3.11",
   "features": {
     "ghcr.io/devcontainers-contrib/features/pdm:2": {},
     "ghcr.io/trunk-io/devcontainer-feature/trunk:1": {},
     "ghcr.io/devcontainers-contrib/features/mkdocs:2": {
-      "mkdocstringsPlugin": "latest"
-    },
-    "ghcr.io/devcontainers/features/github-cli:1": {}
+      "plugins": "mkdocs-material mkdocstrings[python]"
+    }
   },
   "postCreateCommand": "bash .devcontainer/scripts/postCreate.sh",
-  "postStartCommand": "bash .devcontainer/scripts/postStart.sh"
+  "postStartCommand": "bash .devcontainer/scripts/postStart.sh",
+  "containerEnv": {
+    "PYTHONDONTWRITEBYTECODE": "1"
+  }
 }
