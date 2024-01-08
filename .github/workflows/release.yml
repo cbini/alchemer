@@ -2,10 +2,7 @@ on:
   release:
     types:
       - published
-      - created
       - edited
-      - prereleased
-      - released
 
 jobs:
   pypi-publish:
