@@ -11,6 +11,7 @@ python -m pip install --no-cache-dir --upgrade pip
 
 # update pdm
 sudo /usr/local/py-utils/bin/pdm self update
+sudo /usr/local/py-utils/bin/pdm self add pdm-bump
 
 # update trunk
 trunk upgrade -y --no-progress
